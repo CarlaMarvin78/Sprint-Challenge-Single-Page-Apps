@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 export default function CharacterCard (props) {
   const char = props.character;
@@ -8,7 +9,6 @@ export default function CharacterCard (props) {
     <p>{char.name}</p>
     <p>{char.species} {char.status}</p>
     <p>Location: {char.location.name}</p>
-    <p>Origin: {char.origin.name}</p>
-    <a href='/episodes'>Episodes</a>
+    <Link to='/episodes'>{char.episode.length} Episodes</Link>
   </div> );
 }
