@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import CharacterCard from './CharacterCard';
+import { Grid } from 'semantic-ui-react';
 
 export default function CharacterList() {
-  // TODO: Add useState to track data from useEffect
-
+  const [characters, setCharacters] = useState();
   useEffect(() => {
-    // TODO: Add AJAX/API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+    axios.get('https://rickandmortyapi.com/api/character/')
+      .then(response => {
+        const data=response.data;
+        console.log (data);
+        setCharacters(data.results.map((character,idx)=><Grid.Column key={idx}><CharacterCard character={character}/></Grid.Column>));
+      });
   }, [])
 
-  return <section className='character-list grid-view'>
+  if(!characters) return (<p> Loading... </p>);
 
-      <h2>TODO: `array.map()` over your state here!</h2>
+  return <section className='character-list'>
+      <Grid columns={2}>{characters}</Grid>
     </section>
 
 }
