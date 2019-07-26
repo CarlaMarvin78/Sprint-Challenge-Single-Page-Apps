@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CharacterCard from './CharacterCard';
+import { Grid } from 'semantic-ui-react';
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState();
@@ -9,14 +10,14 @@ export default function CharacterList() {
       .then(response => {
         const data=response.data;
         console.log (data);
-        setCharacters(data.results.map((character,idx)=><CharacterCard key={idx} character={character}/>));
+        setCharacters(data.results.map((character,idx)=><Grid.Column key={idx}><CharacterCard character={character}/></Grid.Column>));
       });
   }, [])
 
   if(!characters) return (<p> Loading... </p>);
 
-  return <section className='character-list grid-view'>
-      {characters}
+  return <section className='character-list'>
+      <Grid columns={2}>{characters}</Grid>
     </section>
 
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import EpisodeCard from './EpisodeCard';
+import { Grid } from 'semantic-ui-react';
 
 export default function EpisodeList() {
   const [episodes, setEpisodes] = useState();
@@ -9,14 +10,14 @@ export default function EpisodeList() {
       .then(response => {
         const data=response.data;
         console.log (data);
-        setEpisodes(data.results.map((episode,idx)=><EpisodeCard key={idx} episode={episode}/>));
+        setEpisodes(data.results.map((episode,idx)=><Grid.Column  key={idx}><EpisodeCard episode={episode}/></Grid.Column>));
       });
   }, [])
 
   if(!episodes) return (<p> Loading... </p>);
 
-  return <section className='character-list grid-view'>
-      {episodes}
+  return <section>
+      <Grid columns={2}>{episodes}</Grid>
     </section>
 
 }
